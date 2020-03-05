@@ -57,14 +57,15 @@ def runExample():
 	myEncoders.begin()
 
 	while True:
-        for x in range(0, 10): # keep polling counts for ~3 seconds, allowing the user to rotate
-            print("Count1: %d, Count2: %s" % (myEncoders.count1, \
-                myEncoders.count2, \
-                ))
+		for x in range(0, 10): # keep polling counts for ~3 seconds, allowing the user to rotate
+			print("Count1: %d, Count2: %s" % (myEncoders.count1, \
+			myEncoders.count2, \
+			))
 
-            time.sleep(.3)
-        myEncoders.count1 = 0 # use set count to "zero out" the counts
-        myEncoders.count2 = 0
+			time.sleep(.3)
+			
+		myEncoders.count1 = 0 # use set count to "zero out" the counts
+		myEncoders.count2 = 0
 
 if __name__ == '__main__':
 	try:
