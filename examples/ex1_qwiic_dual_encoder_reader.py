@@ -40,29 +40,26 @@
 #
 
 from __future__ import print_function
-import qwiic_twist
+import qwiic_dual_encoder_reader
 import time
 import sys
 
 def runExample():
 
-	print("\nSparkFun qwiic Twist   Example 1\n")
-	myTwist = qwiic_twist.QwiicTwist()
+	print("\nSparkFun Qwiic Dual Encoder Reader   Example 1\n")
+	myEncoders = qwiic_dual_encoder_reader.QwiicDualEncoderReader()
 
-	if myTwist.connected == False:
-		print("The Qwiic twist device isn't connected to the system. Please check your connection", \
+	if myEncoders.connected == False:
+		print("The Qwiic Dual Encoder Reader device isn't connected to the system. Please check your connection", \
 			file=sys.stderr)
 		return
 
-	myTwist.begin()
-
-	# Set the knob color to pink
-	myTwist.set_color(100, 10, 50)
+	myEncoders.begin()
 
 	while True:
 
-		print("Count: %d, Pressed: %s" % (myTwist.count, \
-			"YES" if myTwist.pressed else "NO", \
+		print("Count1: %d, Count2: %s" % (myTwist.count1, \
+			myTwist.count2, \
 			))
 
 		time.sleep(.3)
