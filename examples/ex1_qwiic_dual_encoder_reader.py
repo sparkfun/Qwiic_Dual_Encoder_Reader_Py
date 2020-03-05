@@ -58,8 +58,8 @@ def runExample():
 
 	while True:
 
-		print("Count1: %d, Count2: %s" % (myTwist.count1, \
-			myTwist.count2, \
+		print("Count1: %d, Count2: %s" % (myEncoders.count1, \
+			myEncoders.count2, \
 			))
 
 		time.sleep(.3)
