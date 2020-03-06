@@ -57,6 +57,7 @@ New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.s
 """
 #-----------------------------------------------------------------------------
 from __future__ import print_function
+import struct
 
 import qwiic_i2c
 
@@ -185,7 +186,13 @@ class QwiicDualEncoderReader(object):
             :rtype: word as integer
 
         """
-        return self._i2c.readWord(self.address, QDER_COUNT1)
+        c1 = self._i2c.readWord(self.address, QDER_COUNT1)
+        # encoder reader returns a SIGNED 16 bit int
+        # python receives this as simply 16 bits of data
+        # we need to accept negative values
+        if c1 < 32767:
+            c1 -= 65536
+        return c1
 
     #----------------------------------------------------------------
     # get_count2()
@@ -200,8 +207,13 @@ class QwiicDualEncoderReader(object):
             :rtype: word as integer
 
         """
-        return self._i2c.readWord(self.address, QDER_COUNT2)
-
+        c2 = self._i2c.readWord(self.address, QDER_COUNT2)
+        # encoder reader returns a SIGNED 16 bit int
+        # python receives this as simply 16 bits of data
+        # we need to accept negative values
+        if c2 < 32767:
+            c2 -= 65536
+        return c2
 
     #----------------------------------------------------------------
     # set_count1()
