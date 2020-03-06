@@ -303,27 +303,6 @@ class QwiicDualEncoderReader(object):
         return difference
 
     #----------------------------------------------------------------
-    # is_pressed()
-    #
-    # Returns true if button is currently being pressed
-
-    def is_pressed(self):
-        """
-            Returns true if button is currently being pressed
-
-            :return: Button pressed state
-            :rtype: Boolean
-
-        """
-        status = self._i2c.readByte(self.address, QDER_STATUS)
-
-        self._i2c.writeByte(self.address, QDER_STATUS, \
-                        status & ~(1 << _statusButtonPressedBit))
-
-        return (status & (1 << _statusButtonPressedBit)) != 0
-
-    pressed = property(is_pressed)
-    #----------------------------------------------------------------
     # has_moved()
     #
     # Returns true if knob has been twisted
@@ -365,30 +344,6 @@ class QwiicDualEncoderReader(object):
         # Clear the current value if requested
         if clear_value:
             self._i2c.writeWord(QDER_LAST_ENCODER_EVENT, 0)
-
-        return time_elapsed
-
-    #----------------------------------------------------------------
-    # since_last_press()
-    #
-    # Returns the number of milliseconds since the last button event (press and release)
-    # By default, clear the current value
-    def since_last_press(self, clear_value=True):
-        """
-            Returns the number of milliseconds since the last button event (press and release)
-            By default, clear the current value
-
-            :param clearValue: Clear out the value? False by default
-
-            :return: time since last button press
-            :rtype: integer
-
-        """
-        time_elapsed = self._i2c.readWord(self.address, QDER_LAST_BUTTON_EVENT)
-
-        # Clear the current value if requested
-        if clear_value:
-            self._i2c.writeWord(QDER_LAST_BUTTON_EVENT, 0)
 
         return time_elapsed
 
