@@ -190,7 +190,7 @@ class QwiicDualEncoderReader(object):
         # encoder reader returns a SIGNED 16 bit int
         # python receives this as simply 16 bits of data
         # we need to accept negative values
-        if c1 < 32767:
+        if c1 > 32767:
             c1 -= 65536
         return c1
 
@@ -211,7 +211,7 @@ class QwiicDualEncoderReader(object):
         # encoder reader returns a SIGNED 16 bit int
         # python receives this as simply 16 bits of data
         # we need to accept negative values
-        if c2 < 32767:
+        if c2 > 32767:
             c2 -= 65536
         return c2
 
