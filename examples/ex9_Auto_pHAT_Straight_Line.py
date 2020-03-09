@@ -73,46 +73,98 @@ def runExample():
 	myMotors.begin()
 
 	direction = DIRECTION_FWD
-	motor_speed_target = 70
-	left_motor_speed = 53
+	motor_speed_target = 100
+	left_motor_speed = motor_speed_target
 	right_motor_speed = motor_speed_target
 	motor_speed_correction = 0
 	count12_delta = 0
 	prev_count12_delta = 0
 	error_change = 0
 	P_gain = 0.2
-	D_gain = 1
+	D_gain = 3
 	myMotors.enable()
 	myMotors.set_drive(L_MTR,L_FWD,left_motor_speed)
 	myMotors.set_drive(R_MTR,R_FWD,right_motor_speed)
-	for i in range(0,100):
-		time.sleep(.03)
+	for i in range(0,300):
+		#time.sleep(.01)
 		count12_delta = myEncoders.count1 - (-myEncoders.count2)
 		error_change = count12_delta - prev_count12_delta
-		if myEncoders.count1 != (-myEncoders.count2):
-			motor_speed_correction = count12_delta
-			motor_speed_correction *= P_gain #proportional adjustment
-			motor_speed_correction += (D_gain * error_change) #derivative adjustment, looks at the change in error, if it gets smaller, than slow down the correction
+		motor_speed_correction = count12_delta
+		motor_speed_correction *= P_gain #proportional adjustment
+		motor_speed_correction += (D_gain * error_change) #derivative adjustment, looks at the change in error, if it gets smaller, than slow down the correction
 		left_motor_speed -= motor_speed_correction
 		myMotors.set_drive(L_MTR, L_FWD, (left_motor_speed))
-		print("Count1: %d, Count2: %d, LMspd: %d, RMspd: %d, cntdelta: %d, error_change: %d" % \
-                      (myEncoders.count1, -myEncoders.count2, left_motor_speed, right_motor_speed, count12_delta, error_change))
+		print("1:%d \t2:%d \tLS:%d \tRS:%d \tCD:%d \tEr:%d \tMC:%d" % \
+                      (myEncoders.count1, -myEncoders.count2, left_motor_speed, right_motor_speed, count12_delta, error_change, motor_speed_correction))
 		prev_count12_delta = count12_delta
 		
 	myMotors.disable()
-	
+
 	time.sleep(1)
+	myEncoders.count1 = 0
+	myEncoders.count2 = 0
 	
-	#myMotors.enable()	
-	#myMotors.set_drive(L_MTR,L_BWD,50)
-	#myMotors.set_drive(R_MTR,R_BWD,50)
-	#for i in range(0,40):
-	#	print("Count1: %d, Count2: %s" % (myEncoders.count1, -myEncoders.count2))
-	#	time.sleep(.1)
-	#myMotors.disable()
+	direction = DIRECTION_FWD
+	motor_speed_target = 100
+	left_motor_speed = motor_speed_target
+	right_motor_speed = motor_speed_target
+	motor_speed_correction = 0
+	count12_delta = 0
+	prev_count12_delta = 0
+	error_change = 0
+	P_gain = 0.3
+	D_gain = 3
+	myMotors.enable()
+	myMotors.set_drive(L_MTR,L_BWD,left_motor_speed)
+	myMotors.set_drive(R_MTR,R_FWD,right_motor_speed)
+	for i in range(0,300):
+		#time.sleep(.01)
+		count12_delta = abs(myEncoders.count1) - (-myEncoders.count2)
+		error_change = count12_delta - prev_count12_delta
+		motor_speed_correction = count12_delta
+		motor_speed_correction *= P_gain #proportional adjustment
+		motor_speed_correction += (D_gain * error_change) #derivative adjustment, looks at the change in error, if it gets smaller, than slow down the correction
+		left_motor_speed -= motor_speed_correction
+		myMotors.set_drive(L_MTR, L_BWD, (left_motor_speed))
+		print("1:%d \t2:%d \tLS:%d \tRS:%d \tCD:%d \tEr:%d \tMC:%d" % \
+                      (myEncoders.count1, -myEncoders.count2, left_motor_speed, right_motor_speed, count12_delta, error_change, motor_speed_correction))
+		if(myEncoders.count1 < -575):
+			break
+		prev_count12_delta = count12_delta
+		
+	myMotors.disable()
+
+	time.sleep(1)
+# 	
+# 	myEncoders.count1 = 0
+# 	myEncoders.count2 = 0
+# 	myMotors.enable()	
+# 	myMotors.set_drive(L_MTR,L_BWD,140)
+# 	myMotors.set_drive(R_MTR,R_FWD,150)
+# 	for i in range(0,50):
+# 		print("Count1: %d, Count2: %s" % (myEncoders.count1, -myEncoders.count2))
+# 		time.sleep(.1)
+# 		if(myEncoders.count1 < -600):
+# 			time.sleep(.1)
+# 			myMotors.set_drive(L_MTR, L_BWD, 0) #stop
+# 		elif(myEncoders.count1 < -500):
+# 			time.sleep(.1)
+# 			myMotors.set_drive(L_MTR, L_BWD, 50) #slow down as we approach destination
+# 		if(myEncoders.count2 < -600):
+# 			time.sleep(.1)
+# 			myMotors.set_drive(R_MTR, R_FWD, 0) #stop
+# 		elif(myEncoders.count2 < -500):
+# 			time.sleep(.1)
+# 			myMotors.set_drive(R_MTR, R_FWD, 50) #slow
+# 		if((myEncoders.count1 < -600) and (myEncoders.count2 < -600)):
+# 			time.sleep(.1)
+# 			myMotors.disable()
+# 			break
+# 	myMotors.disable()
 
 if __name__ == '__main__':
 	try:
+		runExample()
 		runExample()
 	except (KeyboardInterrupt, SystemExit) as exErr:
 		print("\nEnding Example 1")
