@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #-----------------------------------------------------------------------------
-# qwiic_twist_ex1.py
+# ex2_qwiic_dual_encoder_reader.py
 #
-# Simple Example for the Qwiic Twist Device
+# Simple Example demonstrating how to read encoders counts (and then reset count values) for the Qwiic Dual Encoder Reader (as part of the SparkFun Auto pHAT)
 #------------------------------------------------------------------------
 #
 # Written by  SparkFun Electronics, May 2019

@@ -1,13 +1,13 @@
 #-----------------------------------------------------------------------------
-# qwiic_twist.py
+# qwiic_dual_encoder_reader.py
 #
-# Python library for the SparkFun qwiic twist.
+# Python library for the dual encoder reader that is part of the SparkFun Auto pHAT.
 #
 #   https://www.sparkfun.com/products/15083
 #
 #------------------------------------------------------------------------
 #
-# Written by  SparkFun Electronics, July 2019
+# Written by  SparkFun Electronics, March 2020
 #
 # This python library supports the SparkFun Electroncis qwiic
 # qwiic sensor/board ecosystem
@@ -44,11 +44,11 @@
 #
 
 """
-qwiic_twist
+qwiic_dual_encoder_reader
 ===============
-Python module for the[SparkFun Qwiic Twist](https://www.sparkfun.com/products/15083)
+Python module for the[SparkFun Auto pHAT for Raspberry Pi](https://www.sparkfun.com/products/16328)
 
-This python package is a port of the existing [SparkFun Qwiic Twist Arduino Library](https://github.com/sparkfun/SparkFun_Qwiic_QDER_Arduino_Library)
+This python package enables the user to take count readings from the on-board ATTINY84 that handles reading the dual motor encoders.
 
 This package can be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)
 
@@ -74,7 +74,7 @@ _DEFAULT_NAME = "SparkFun Qwiic Dual Encoder Reader"
 # device.
 _AVAILABLE_I2C_ADDRESS = [0x3F]
 
-# Register codes for the twist
+# Register codes for the SparkFun Dual Encoder Reader
 QDER_ID = 0x00
 QDER_STATUS = 0x01 #2 - button clicked, 1 - button pressed, 0 - encoder moved
 QDER_VERSION = 0x02
@@ -83,7 +83,7 @@ QDER_COUNT1 = 0x05
 QDER_DIFFERENCE1 = 0x07
 QDER_COUNT2 = 0x09
 QDER_DIFFERENCE2 = 0x0B
-QDER_LAST_ENCODER_EVENT = 0x0D #Millis since last movement of knob
+QDER_LAST_ENCODER_EVENT = 0x0D #Millis since last movement of encoder
 QDER_TURN_INT_TIMEOUT = 0x0F
 QDER_CHANGE_ADDRESS = 0x11
 QDER_LIMIT = 0x12
@@ -133,7 +133,7 @@ class QwiicDualEncoderReader(object):
 
     def is_connected(self):
         """
-            Determine if a Tesit device is conntected to the system..
+            Determine if a device is conntected to the system..
 
             :return: True if the device is connected, otherwise False.
             :rtype: bool
@@ -148,7 +148,7 @@ class QwiicDualEncoderReader(object):
     # Initialize the system/validate the board.
     def begin(self):
         """
-            Initialize the operation of the Twist module
+            Initialize the operation of the Dual Encoder Reader module
 
             :return: Returns true of the initializtion was successful, otherwise False.
             :rtype: bool
@@ -180,9 +180,9 @@ class QwiicDualEncoderReader(object):
 
     def get_count1(self):
         """
-            Returns the number of indents the user has twisted the knob
+            Returns the number of "ticks" the encoder1 has turned
 
-            :return: number of indents
+            :return: number of encoder pulses
             :rtype: word as integer
 
         """
@@ -201,9 +201,9 @@ class QwiicDualEncoderReader(object):
 
     def get_count2(self):
         """
-            Returns the number of indents the user has twisted the knob
+            Returns the number of "ticks" the encoder2 has turned
 
-            :return: number of indents
+            :return: number of encoder pulses
             :rtype: word as integer
 
         """
@@ -305,11 +305,11 @@ class QwiicDualEncoderReader(object):
     #----------------------------------------------------------------
     # has_moved()
     #
-    # Returns true if knob has been twisted
+    # Returns true if encoder has moved
 
     def has_moved(self):
         """
-            Returns true if knob has been twisted
+            Returns true if encoder has moved
 
             :return: Moved state
             :rtype: Boolean
@@ -367,11 +367,11 @@ class QwiicDualEncoderReader(object):
     #----------------------------------------------------------------
     # set_int_timeout()
     #
-    # Set number of milliseconds that elapse between end of knob turning and interrupt firing
+    # Set number of milliseconds that elapse between end of encoder turning and interrupt firing
 
     def set_int_timeout(self, timeout):
         """
-            Set number of milliseconds that elapse between end of knob turning and interrupt firing
+            Set number of milliseconds that elapse between end of encoder turning and interrupt firing
 
             :param timeout: the timeout value in milliseconds
 
@@ -383,11 +383,11 @@ class QwiicDualEncoderReader(object):
     #----------------------------------------------------------------
     # get_int_timeout()
     #
-    # Get number of milliseconds that elapse between end of knob turning and interrupt firing
+    # Get number of milliseconds that elapse between end of encoder turning and interrupt firing
 
     def get_int_timeout(self):
         """
-            Get number of milliseconds that elapse between end of knob turning and interrupt firing
+            Get number of milliseconds that elapse between end of encoder turning and interrupt firing
 
             :return: the timeout value
             :rtype: integer
