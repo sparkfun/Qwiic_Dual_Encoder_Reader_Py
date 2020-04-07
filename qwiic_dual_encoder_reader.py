@@ -50,6 +50,8 @@ Python module for the[SparkFun Auto pHAT for Raspberry Pi](https://www.sparkfun.
 
 This python package enables the user to take count readings from the on-board ATTINY84 that handles reading the dual motor encoders.
 
+The firmware that is used on the ATTiny84 is located in a separate repository here: [SparkFun Dual Encoder Reader Firmware Repository](https://github.com/sparkfun/Qwiic_Dual_Encoder_Reader)
+
 This package can be used in conjunction with the overall [SparkFun qwiic Python Package](https://github.com/sparkfun/Qwiic_Py)
 
 New to qwiic? Take a look at the entire [SparkFun qwiic ecosystem](https://www.sparkfun.com/qwiic).
