@@ -74,7 +74,7 @@ _DEFAULT_NAME = "SparkFun Qwiic Dual Encoder Reader"
 # Some devices have multiple availabel addresses - this is a list of these addresses.
 # NOTE: The first address in this list is considered the default I2C address for the
 # device.
-_AVAILABLE_I2C_ADDRESS = [0x3F]
+_AVAILABLE_I2C_ADDRESS = [0x73, 0x74] # open ADR jumper (default) = 0x73, closed ADR jumper = 0x74
 
 # Register codes for the SparkFun Dual Encoder Reader
 QDER_ID = 0x00
